@@ -53,7 +53,7 @@ SGP30::SGP30()
 
 //Start I2C communication using specified port
 //Returns true if successful or false if no sensor detected
-bool SGP30::begin(TwoWire &wirePort)
+bool SGP30::begin(SoftwareI2C &wirePort)
 {
   _i2cPort = &wirePort; //Grab which port the user wants us to use
   getSerialID();

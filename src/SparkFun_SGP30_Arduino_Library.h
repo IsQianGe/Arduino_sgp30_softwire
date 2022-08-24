@@ -40,7 +40,7 @@
 #define SparkFun_SGP30_Arduino_Library_h
 
 #include "Arduino.h"
-#include <Wire.h>
+#include "SoftwareI2C.h"
 typedef enum
 {
   SGP30_SUCCESS = 0,
@@ -76,7 +76,7 @@ public:
   SGP30();
 
   //Start I2C communication using specified port
-  bool begin(TwoWire &wirePort = Wire); //If user doesn't specificy then Wire will be used
+  bool begin(SoftwareI2C &wirePort); //If user doesn't specificy then Wire will be used
 
   //Initializes sensor for air quality readings
   void initAirQuality(void);
@@ -132,7 +132,7 @@ public:
 
 private:
   //This stores the requested i2c port
-  TwoWire *_i2cPort;
+  SoftwareI2C *_i2cPort;
 
   //SGP30's I2C address
   const byte _SGP30Address = 0x58;
