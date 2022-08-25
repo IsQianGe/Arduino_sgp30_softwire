@@ -78,7 +78,11 @@ void SGP30::initAirQuality(void)
 //Returns SGP30_SUCCESS if successful or other error code if unsuccessful
 SGP30ERR SGP30::measureAirQuality(void)
 {
-  _i2cPort->beginTransmission(_SGP30Address);
+  if(_i2cPort->beginTransmission(_SGP30Address) == GETNAK)
+  {
+    _i2cPort->endTransmission();
+    return SGP30_ERR_I2C_TIMEOUT;
+  }
   _i2cPort->write(measure_air_quality, 2); //command to measure air quality
   _i2cPort->endTransmission();
   //Hang out while measurement is taken. datasheet says 10-12ms
